@@ -2,7 +2,7 @@
   {
     "id": 0,
     "name": "The Forest Hiker",
-    "durations": 5,
+    "duration": 5,
     "maxGroupSize": 25,
     "difficulty": "easy",
     "ratingsAverage": 4.7,
@@ -17,7 +17,7 @@
   {
     "id": 1,
     "name": "The Sea Explorer",
-    "durations": 7,
+    "duration": 7,
     "maxGroupSize": 15,
     "difficulty": "medium",
     "ratingsAverage": 4.8,
@@ -32,7 +32,7 @@
   {
     "id": 2,
     "name": "The Snow Adventurer",
-    "durations": 4,
+    "duration": 4,
     "maxGroupSize": 10,
     "difficulty": "difficult",
     "ratingsAverage": 4.5,
@@ -47,7 +47,7 @@
   {
     "id": 3,
     "name": "The City Wanderer",
-    "durations": 9,
+    "duration": 9,
     "maxGroupSize": 20,
     "difficulty": "easy",
     "ratingsAverage": 4.6,
@@ -62,7 +62,7 @@
   {
     "id": 4,
     "name": "The Park Camper",
-    "durations": 10,
+    "duration": 10,
     "maxGroupSize": 15,
     "difficulty": "medium",
     "ratingsAverage": 4.9,
@@ -77,7 +77,7 @@
   {
     "id": 5,
     "name": "The Sports Lover",
-    "durations": 14,
+    "duration": 14,
     "maxGroupSize": 8,
     "difficulty": "difficult",
     "ratingsAverage": 4.7,
@@ -92,7 +92,7 @@
   {
     "id": 6,
     "name": "The Wine Taster",
-    "durations": 5,
+    "duration": 5,
     "maxGroupSize": 8,
     "difficulty": "easy",
     "ratingsAverage": 4.5,
@@ -107,7 +107,7 @@
   {
     "id": 7,
     "name": "The Star Gazer",
-    "durations": 9,
+    "duration": 9,
     "maxGroupSize": 8,
     "difficulty": "medium",
     "ratingsAverage": 4.7,
@@ -122,7 +122,7 @@
   {
     "id": 8,
     "name": "The Northern Lights",
-    "durations": 3,
+    "duration": 3,
     "maxGroupSize": 12,
     "difficulty": "easy",
     "ratingsAverage": 4.9,
