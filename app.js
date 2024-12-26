@@ -34,8 +34,11 @@ app.all('*', function(req, res, next) {
   // const err = new Error(`Can't find ${req.originalUrl} on this server!`);
   // err.status = 'fail';
   // err.statusCode = 404;
-
-  next(new AppError(`Can't find ${req.originalUrl}on this server!`, 404));
+  const error = new AppError(
+    `Can't find ${req.originalUrl}on this server!`,
+    404
+  );
+  next(error);
 });
 app.use(globalErrorHandler);
 module.exports = app;
