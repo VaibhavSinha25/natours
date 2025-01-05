@@ -21,5 +21,9 @@ exports.getTour = catchAsync(async (req, res, next) => {
   });
   //2) Build Template
   //3) Render that template using tour data from 1
-  res.status(200).render('tour', { title: 'The forest hiker', tour });
+  res.status(200).render('tour', { title: `${tour.name} Tour`, tour });
 });
+
+exports.getLoginForm = (req, res) => {
+  res.status(200).render('login', { title: 'Log into your account' });
+};
