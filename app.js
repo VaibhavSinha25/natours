@@ -31,7 +31,11 @@ const styleSrcUrls = [
   'https://tile.openstreetmap.org',
   'https://fonts.googleapis.com/'
 ];
-const connectSrcUrls = ['https://unpkg.com', 'https://tile.openstreetmap.org'];
+const connectSrcUrls = [
+  'https://unpkg.com',
+  'https://tile.openstreetmap.org',
+  'ws://127.0.0.1:54890'
+];
 const fontSrcUrls = ['fonts.googleapis.com', 'fonts.gstatic.com'];
 //set security http headers
 app.use(

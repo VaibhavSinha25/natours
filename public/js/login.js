@@ -1,5 +1,7 @@
 /*eslint-disable */
-const login = async (email, password) => {
+import axios from 'axios';
+import { showAlert } from './alert';
+export const login = async (email, password) => {
   console.log(email, password);
   try {
     const res = await axios({
@@ -10,14 +12,35 @@ const login = async (email, password) => {
         password
       }
     });
-    console.log(res);
+    if (res.data.status === 'success') {
+      showAlert('success', 'Logged in successfully!');
+      window.setTimeout(() => {
+        location.assign('/');
+      }, 1500);
+    }
   } catch (err) {
-    console.log(err.response.data);
+    if (err.response) {
+      // Server responded with a non-2xx status code
+      const { message } = err.response.data;
+      showAlert('error', message || 'Something went wrong!');
+    } else if (err.request) {
+      // No response received
+      showAlert('error', 'No response from server. Check your connection.');
+    } else {
+      // Other errors
+      showAlert('error', err.message);
+    }
   }
 };
-document.querySelector('.form').addEventListener('submit', function(e) {
-  e.preventDefault();
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
-  login(email, password);
-});
+
+export const logout = async () => {
+  try {
+    const res = await axios({
+      method: 'GET',
+      url: 'http://127.0.0.1:3000/api/v1/users/logout'
+    });
+    if ((res.data.status = 'success')) location.reload(true);
+  } catch (err) {
+    showAlert('error', 'Error logging out');
+  }
+};
