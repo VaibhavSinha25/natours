@@ -34,7 +34,8 @@ const styleSrcUrls = [
 const connectSrcUrls = [
   'https://unpkg.com',
   'https://tile.openstreetmap.org',
-  'ws://127.0.0.1:54890'
+  'ws://127.0.0.1:54890',
+  'ws://127.0.0.1:54016/'
 ];
 const fontSrcUrls = ['fonts.googleapis.com', 'fonts.gstatic.com'];
 //set security http headers
@@ -66,6 +67,7 @@ app.use('/api', limiter);
 
 //Body parser, reading data from body into req.body
 app.use(express.json({ limit: '10kb' }));
+app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 app.use(cookieParser());
 //Data sanitization against NoSQL query injection
 app.use(mongoSanitize());
