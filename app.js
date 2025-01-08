@@ -35,7 +35,8 @@ const connectSrcUrls = [
   'https://unpkg.com',
   'https://tile.openstreetmap.org',
   'ws://127.0.0.1:54890',
-  'ws://127.0.0.1:54016/'
+  'ws://127.0.0.1:54016/',
+  'ws://127.0.0.1:*'
 ];
 const fontSrcUrls = ['fonts.googleapis.com', 'fonts.gstatic.com'];
 //set security http headers
@@ -90,7 +91,7 @@ app.use(
 //Test middleware
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
-  console.log(req.cookies);
+  // console.log(req.cookies);
   next();
 });
 

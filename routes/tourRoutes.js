@@ -11,7 +11,9 @@ const {
   getTourStats,
   getMonthlyPlan,
   getToursWithin,
-  getDistances
+  getDistances,
+  uploadTourImages,
+  resizeTourImages
 } = require('../controllers/tourController');
 const router = express.Router();
 
@@ -47,6 +49,8 @@ router
   .patch(
     authController.protect,
     authController.restrictTo('admin', 'lead-guide'),
+    uploadTourImages,
+    resizeTourImages,
     updateTour
   )
   .delete(
