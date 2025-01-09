@@ -7,13 +7,20 @@ module.exports = class Email {
     this.to = user.email;
     this.firstName = user.name.split(' ')[0];
     this.url = url;
-    this.from = `Vaibhav Sinha <${process.env.EMAIL_FROM}>`;
+    this.from = process.env.EMAIL_FROM;
   }
 
   newTransport() {
     if (process.env.NODE_ENV === 'production') {
-      //sendgrid
-      return 1;
+      return nodemailer.createTransport({
+        host: 'smtp-relay.brevo.com',
+        port: 587,
+        secure: false, // true for 465, false for other ports
+        auth: {
+          user: process.env.BREVO_USERNAME, // generated ethereal user
+          pass: process.env.BREVO_PASSWORD // generated ethereal password
+        }
+      });
     }
 
     return nodemailer.createTransport({

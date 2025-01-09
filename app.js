@@ -9,6 +9,7 @@ const xss = require('xss-clean');
 const hpp = require('hpp');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
+const bookingRouter = require('./routes/bookingRoutes');
 const viewRouter = require('./routes/viewRoutes');
 const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
@@ -25,15 +26,21 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //Set security HTTP headers
 app.use(helmet());
-const scriptSrcUrls = ['https://unpkg.com/', 'https://tile.openstreetmap.org'];
+const scriptSrcUrls = [
+  'https://unpkg.com/',
+  'https://tile.openstreetmap.org',
+  'https://js.stripe.com/v3/'
+];
 const styleSrcUrls = [
   'https://unpkg.com/',
   'https://tile.openstreetmap.org',
-  'https://fonts.googleapis.com/'
+  'https://fonts.googleapis.com/',
+  'https://js.stripe.com/v3/'
 ];
 const connectSrcUrls = [
   'https://unpkg.com',
   'https://tile.openstreetmap.org',
+  'https://js.stripe.com/v3/',
   'ws://127.0.0.1:54890',
   'ws://127.0.0.1:54016/',
   'ws://127.0.0.1:*'
@@ -43,7 +50,7 @@ const fontSrcUrls = ['fonts.googleapis.com', 'fonts.gstatic.com'];
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
-      defaultSrc: [],
+      defaultSrc: ['https://js.stripe.com/v3/'],
       connectSrc: ["'self'", ...connectSrcUrls],
       scriptSrc: ["'self'", ...scriptSrcUrls],
       styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
@@ -106,6 +113,7 @@ app.use('/', viewRouter);
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/reviews', reviewRouter);
+app.use('/api/v1/bookings', bookingRouter);
 app.all('*', function(req, res, next) {
   // const err = new Error(`Can't find ${req.originalUrl} on this server!`);
   // err.status = 'fail';
