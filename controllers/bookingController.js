@@ -27,7 +27,11 @@ exports.getCheckoutSession = catchAsync(async function(req, res) {
           product_data: {
             name: `${tour.name} Tour`,
             description: tour.summary,
-            images: [`https://natours.dev/img/tours/${tour.imageCover}`]
+            images: [
+              `${req.protocol}://${req.get('host')}/img/tours/${
+                tour.imageCover
+              }`
+            ]
           },
           unit_amount: tour.price * 100 // Stripe expects the amount in cents
         },
@@ -55,10 +59,13 @@ exports.getCheckoutSession = catchAsync(async function(req, res) {
 const createBookingCheckout = async session => {
   const tour = session.client_reference_id;
   const user = (await User.findOne({ email: session.customer_email })).id;
-  const price = session.line_items[0].unit_amount / 100;
+  // const price = session.line_items[0].unit_amount / 100;
+  const lineItems = await stripe.checkout.sessions.listLineItems(session.id);
+  // Use unit_amount if you only want the price per item
+  const price = lineItems.data[0].price.unit_amount / 100;
   await Booking.create({ tour, user, price });
 };
-exports.webhookCheckout = (req, res, next) => {
+exports.webhookCheckout = async (req, res, next) => {
   const signature = req.headers['stripe-signature'];
   let event;
   try {
@@ -70,8 +77,8 @@ exports.webhookCheckout = (req, res, next) => {
   } catch (e) {
     return res.status(400).send(`Webhook error : ${e.message}`);
   }
-  if (event.type === 'checkout.session.complete') {
-    createBookingCheckout(event.data.object);
+  if (event.type === 'checkout.session.completed') {
+    await createBookingCheckout(event.data.object);
     res.status(200).json({ received: true });
   }
 };
