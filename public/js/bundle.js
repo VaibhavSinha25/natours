@@ -12661,7 +12661,7 @@ var showAlert = exports.showAlert = function showAlert(type, msg) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.logout = exports.login = void 0;
+exports.signup = exports.logout = exports.login = void 0;
 var _axios = _interopRequireDefault(require("axios"));
 var _alert = require("./alert");
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
@@ -12720,8 +12720,8 @@ var login = exports.login = /*#__PURE__*/function () {
     return _ref.apply(this, arguments);
   };
 }();
-var logout = exports.logout = /*#__PURE__*/function () {
-  var _ref2 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+var signup = exports.signup = /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2(name, email, password, passwordConfirm) {
     var res;
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) switch (_context2.prev = _context2.next) {
@@ -12729,26 +12729,68 @@ var logout = exports.logout = /*#__PURE__*/function () {
           _context2.prev = 0;
           _context2.next = 3;
           return (0, _axios.default)({
-            method: 'GET',
-            url: 'http://127.0.0.1:3000/api/v1/users/logout'
+            method: 'POST',
+            url: 'http://127.0.0.1:3000/api/v1/users/signup',
+            data: {
+              name: name,
+              email: email,
+              password: password,
+              passwordConfirm: passwordConfirm
+            }
           });
         case 3:
           res = _context2.sent;
-          if (res.data.status = 'success') location.reload(true);
+          if (res.data.status === 'success') {
+            (0, _alert.showAlert)('success', 'Signed up successfully!');
+            window.setTimeout(function () {
+              location.assign('/login');
+            }, 1500);
+          }
           _context2.next = 10;
           break;
         case 7:
           _context2.prev = 7;
           _context2.t0 = _context2["catch"](0);
-          (0, _alert.showAlert)('error', 'Error logging out');
+          (0, _alert.showAlert)('error', _context2.t0.message);
         case 10:
         case "end":
           return _context2.stop();
       }
     }, _callee2, null, [[0, 7]]);
   }));
-  return function logout() {
+  return function signup(_x3, _x4, _x5, _x6) {
     return _ref2.apply(this, arguments);
+  };
+}();
+var logout = exports.logout = /*#__PURE__*/function () {
+  var _ref3 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+    var res;
+    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+      while (1) switch (_context3.prev = _context3.next) {
+        case 0:
+          _context3.prev = 0;
+          _context3.next = 3;
+          return (0, _axios.default)({
+            method: 'GET',
+            url: 'http://127.0.0.1:3000/api/v1/users/logout'
+          });
+        case 3:
+          res = _context3.sent;
+          if (res.data.status = 'success') location.reload(true);
+          _context3.next = 10;
+          break;
+        case 7:
+          _context3.prev = 7;
+          _context3.t0 = _context3["catch"](0);
+          (0, _alert.showAlert)('error', 'Error logging out');
+        case 10:
+        case "end":
+          return _context3.stop();
+      }
+    }, _callee3, null, [[0, 7]]);
+  }));
+  return function logout() {
+    return _ref3.apply(this, arguments);
   };
 }();
 },{"axios":"../../node_modules/axios/index.js","./alert":"alert.js"}],"updateSettings.js":[function(require,module,exports) {
@@ -13006,6 +13048,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 //DOM ELEMENTS
 var mapbox = document.getElementById('map');
 var loginForm = document.querySelector('.form--login');
+var signupForm = document.querySelector('.form--signup');
 var logOutBtn = document.querySelector('.nav__el--logout');
 var userDataForm = document.querySelector('.form-user-data');
 var userPasswordForm = document.querySelector('.form-user-password');
@@ -13021,6 +13064,18 @@ if (loginForm) {
     var email = document.getElementById('email').value;
     var password = document.getElementById('password').value;
     (0, _login.login)(email, password);
+  });
+}
+if (signupForm) {
+  signupForm.addEventListener('submit', function (e) {
+    console.log('SIGNNUP FUNCTION');
+    e.preventDefault();
+    var name = document.getElementById('nameSignup').value;
+    var email = document.getElementById('emailSignup').value;
+    var password = document.getElementById('passwordSignup').value;
+    var passwordConfirm = document.getElementById('passwordConfirmSignup').value;
+    console.log(name, email, password, passwordConfirm);
+    (0, _login.signup)(name, email, password, passwordConfirm);
   });
 }
 if (logOutBtn) {
@@ -13116,7 +13171,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64997" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59074" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
