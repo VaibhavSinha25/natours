@@ -1,6 +1,4 @@
 /*eslint-disable*/
-console.log('Hello from the client side');
-
 export const displayMap = locations => {
   // Add markers to the map
   var map = L.map('map', {
@@ -26,7 +24,6 @@ export const displayMap = locations => {
     // shadowSize: [68, 95],
   });
   const points = [];
-  console.log(locations);
   locations.forEach(location => {
     points.push([location.coordinates[1], location.coordinates[0]]);
     L.marker([location.coordinates[1], location.coordinates[0]], {

@@ -28,14 +28,12 @@ if (loginForm) {
 }
 if (signupForm) {
   signupForm.addEventListener('submit', function(e) {
-    console.log('SIGNNUP FUNCTION');
     e.preventDefault();
     const name = document.getElementById('nameSignup').value;
     const email = document.getElementById('emailSignup').value;
     const password = document.getElementById('passwordSignup').value;
     const passwordConfirm = document.getElementById('passwordConfirmSignup')
       .value;
-    console.log(name, email, password, passwordConfirm);
     signup(name, email, password, passwordConfirm);
   });
 }
@@ -52,11 +50,6 @@ if (userDataForm) {
     form.append('email', document.getElementById('email').value);
 
     form.append('photo', document.getElementById('photo').files[0]);
-
-    for (const [key, value] of form.entries()) {
-      console.log(`${key}:`, value);
-    }
-
     updateSettings(form, 'data');
   });
   if (userPasswordForm) {

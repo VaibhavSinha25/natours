@@ -77,7 +77,6 @@ exports.getMe = (req, res, next) => {
   next();
 };
 exports.deleteMe = catchAsync(async (req, res, next) => {
-  console.log(req.user.id);
   await User.findByIdAndUpdate(req.user.id, { active: false });
 
   res.status(204).json({
